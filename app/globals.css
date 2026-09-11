@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f5f1ea;
+  --foreground: #14100f;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --font-sans: var(--font-body-src);
+  --font-heading: var(--font-heading-src);
+
+  --color-puro-offwhite: #f5f1ea;
+  --color-puro-ivory: #ede6d6;
+  --color-puro-beige: #d8c9ae;
+  --color-puro-camel: #b89968;
+  --color-puro-brown: #5a4632;
+  --color-puro-graphite: #3a3a38;
+  --color-puro-navy: #1b2a41;
+  --color-puro-black: #14100f;
+  --color-puro-pink: #f0c9c6;
+  --color-puro-coral: #d9695a;
+  --color-puro-red: #9e2b25;
+  --color-puro-skyblue: #c3dce6;
+  --color-puro-petrol: #3e6e78;
+  --color-puro-yellow: #f1e1a0;
+  --color-puro-mustard: #c98a2b;
+  --color-puro-sage: #b9cfae;
+  --color-puro-forest: #2f4a3c;
+
+  --animate-fade-up: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
