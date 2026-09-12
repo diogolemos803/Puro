@@ -13,16 +13,16 @@ export function ProductCard({ product }: { product: Product }) {
             src={product.coverImage}
             alt={product.name}
             fill
-            sizes="(min-width: 1024px) 420px, (min-width: 640px) 50vw, 70vw"
-            quality={90}
+            sizes="(min-width: 768px) 600px, 90vw"
+            quality={95}
             className="object-cover transition-opacity duration-300 group-hover:opacity-0"
           />
           <Image
             src={product.hoverImage}
             alt={`${product.name}, modelo vestindo a peça`}
             fill
-            sizes="(min-width: 1024px) 420px, (min-width: 640px) 50vw, 70vw"
-            quality={90}
+            sizes="(min-width: 768px) 600px, 90vw"
+            quality={95}
             className="object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100"
           />
         </Link>
