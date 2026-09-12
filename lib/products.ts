@@ -21,6 +21,12 @@ export type Product = {
   details: string[];
   coverImage: string;
   hoverImage: string;
+  /** Real "frente" photo for the PDP gallery — falls back to the vector placeholder when absent. */
+  frontImage?: string;
+  /** Extra real photos for the PDP "Mais detalhes" section — falls back to the color blocks when absent. */
+  galleryImages?: string[];
+  /** Shared id linking color variants of the same design, used to render the PDP color swatches. */
+  colorGroup?: string;
 };
 
 export const products: Product[] = [
@@ -63,5 +69,50 @@ export const products: Product[] = [
     details: ["Detalhe do bordado", "Detalhe da estampa", "Caimento"],
     coverImage: "/produtos/life-point-tee/costas.png",
     hoverImage: "/produtos/life-point-tee/modelo-1.png",
+  },
+  {
+    slug: "home-tee-creme",
+    name: "Home Tee",
+    price: "Sob consulta",
+    fitLabel: "Regular",
+    fabric: "Algodão médio-pesado",
+    color: { label: "Off-white", hex: "#F5F1EA" },
+    sizes: ["P", "M", "G", "GG"],
+    specs: [
+      { label: "Corte", value: "Regular" },
+      { label: "Tecido", value: "Algodão médio-pesado" },
+      { label: "Cor", value: "Off-white" },
+      { label: "Estampa", value: "Bordado frontal, serigrafia nas costas" },
+    ],
+    description:
+      "Peça feita sob encomenda, uma de cada vez — sem produção em lote.",
+    details: ["Detalhe do bordado", "Detalhe da estampa", "Caimento"],
+    coverImage: "/produtos/home-tee-creme/costas.png",
+    hoverImage: "/produtos/home-tee-creme/modelo-1.png",
+    frontImage: "/produtos/home-tee-creme/frente.png",
+    galleryImages: ["/produtos/home-tee-creme/modelo-2.png"],
+    colorGroup: "home-tee",
+  },
+  {
+    slug: "home-tee-verde",
+    name: "Home Tee",
+    price: "Sob consulta",
+    fitLabel: "Regular",
+    fabric: "Algodão médio-pesado",
+    color: { label: "Verde escuro", hex: "#2F4A3C" },
+    sizes: ["P", "M", "G", "GG"],
+    specs: [
+      { label: "Corte", value: "Regular" },
+      { label: "Tecido", value: "Algodão médio-pesado" },
+      { label: "Cor", value: "Verde escuro" },
+      { label: "Estampa", value: "Bordado frontal, serigrafia nas costas" },
+    ],
+    description:
+      "Peça feita sob encomenda, uma de cada vez — sem produção em lote.",
+    details: ["Detalhe do bordado", "Detalhe da estampa", "Caimento"],
+    coverImage: "/produtos/home-tee-verde/costas.png",
+    hoverImage: "/produtos/home-tee-verde/modelo-1.png",
+    galleryImages: ["/produtos/home-tee-verde/modelo-2.png"],
+    colorGroup: "home-tee",
   },
 ];

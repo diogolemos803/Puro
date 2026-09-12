@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { ProductPlaceholder } from "./ProductPlaceholder";
+import { productArt } from "./product-art";
 import { SizeSelector } from "./SizeSelector";
-import type { Product } from "@/lib/products";
+import { products, type Product } from "@/lib/products";
 
 export function PDPClient({
   product,
@@ -18,6 +20,12 @@ export function PDPClient({
   );
   const [touched, setTouched] = useState(false);
 
+  const colorVariants = product.colorGroup
+    ? products.filter((p) => p.colorGroup === product.colorGroup)
+    : [];
+
+  const hasFrontVisual = Boolean(product.frontImage) || Boolean(productArt[product.slug]);
+
   const mailHref = `mailto:contato@purosociety.com.br?subject=${encodeURIComponent(
     `Consulta — ${product.name}`,
   )}&body=${encodeURIComponent(
@@ -26,16 +34,40 @@ export function PDPClient({
 
   return (
     <div className="grid gap-10 lg:grid-cols-2 lg:gap-16">
-      <div className="grid grid-cols-2 gap-3 sm:gap-4">
+      <div className={`grid gap-3 sm:gap-4 ${hasFrontVisual ? "grid-cols-2" : "grid-cols-1"}`}>
+        {hasFrontVisual &&
+          (product.frontImage ? (
+            <figure>
+              <div className="relative aspect-[4/5] w-full overflow-hidden border border-puro-black/10">
+                <Image
+                  src={product.frontImage}
+                  alt={`${product.name}, frente`}
+                  fill
+                  sizes="(min-width: 1024px) 30vw, 45vw"
+                  quality={90}
+                  className="object-cover"
+                />
+              </div>
+              <figcaption className="mt-2 text-xs text-puro-graphite">Frente</figcaption>
+            </figure>
+          ) : (
+            <figure>
+              <div className="aspect-[4/5] w-full">
+                <ProductPlaceholder slug={product.slug} view="frente" />
+              </div>
+              <figcaption className="mt-2 text-xs text-puro-graphite">Frente</figcaption>
+            </figure>
+          ))}
         <figure>
-          <div className="aspect-[4/5] w-full">
-            <ProductPlaceholder slug={product.slug} view="frente" />
-          </div>
-          <figcaption className="mt-2 text-xs text-puro-graphite">Frente</figcaption>
-        </figure>
-        <figure>
-          <div className="aspect-[4/5] w-full">
-            <ProductPlaceholder slug={product.slug} view="costas" />
+          <div className="relative aspect-[4/5] w-full overflow-hidden border border-puro-black/10">
+            <Image
+              src={product.coverImage}
+              alt={`${product.name}, costas`}
+              fill
+              sizes="(min-width: 1024px) 30vw, 45vw"
+              quality={90}
+              className="object-cover"
+            />
           </div>
           <figcaption className="mt-2 text-xs text-puro-graphite">Costas</figcaption>
         </figure>
@@ -54,6 +86,31 @@ export function PDPClient({
             </div>
           ))}
         </dl>
+
+        {colorVariants.length > 1 && (
+          <div className="mt-8">
+            <p className="mb-3 text-sm text-puro-black">Cor</p>
+            <div className="flex gap-2">
+              {colorVariants.map((variant) => {
+                const isCurrent = variant.slug === product.slug;
+                return (
+                  <Link
+                    key={variant.slug}
+                    href={`/colecao/${variant.slug}`}
+                    aria-current={isCurrent}
+                    title={variant.color.label}
+                    className={`h-8 w-8 rounded-full border transition-shadow focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-puro-black ${
+                      isCurrent
+                        ? "ring-2 ring-puro-black ring-offset-2"
+                        : "border-puro-black/20 hover:ring-2 hover:ring-puro-black/40 hover:ring-offset-2"
+                    }`}
+                    style={{ backgroundColor: variant.color.hex }}
+                  />
+                );
+              })}
+            </div>
+          </div>
+        )}
 
         <div className="mt-8">
           <p className="mb-3 text-sm text-puro-black">Tamanho</p>
@@ -93,20 +150,37 @@ export function PDPClient({
 
         <div className="mt-16">
           <p className="mb-4 text-sm text-puro-black">Mais detalhes</p>
-          <div className="grid grid-cols-3 gap-3">
-            {product.details.map((label, i) => (
-              <figure key={label}>
-                <div
-                  className="aspect-square w-full border border-puro-black/10"
-                  style={{
-                    backgroundColor: product.color.hex,
-                    filter: `brightness(${1 + (i - 1) * 0.12})`,
-                  }}
-                />
-                <figcaption className="mt-2 text-xs text-puro-graphite">{label}</figcaption>
-              </figure>
-            ))}
-          </div>
+          {product.galleryImages && product.galleryImages.length > 0 ? (
+            <div className="grid grid-cols-3 gap-3">
+              {product.galleryImages.map((src) => (
+                <div key={src} className="relative aspect-square w-full overflow-hidden border border-puro-black/10">
+                  <Image
+                    src={src}
+                    alt={`${product.name}, mais uma foto`}
+                    fill
+                    sizes="(min-width: 1024px) 15vw, 30vw"
+                    quality={90}
+                    className="object-cover"
+                  />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-3 gap-3">
+              {product.details.map((label, i) => (
+                <figure key={label}>
+                  <div
+                    className="aspect-square w-full border border-puro-black/10"
+                    style={{
+                      backgroundColor: product.color.hex,
+                      filter: `brightness(${1 + (i - 1) * 0.12})`,
+                    }}
+                  />
+                  <figcaption className="mt-2 text-xs text-puro-graphite">{label}</figcaption>
+                </figure>
+              ))}
+            </div>
+          )}
         </div>
 
         <Link
