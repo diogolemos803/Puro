@@ -1,5 +1,5 @@
+import Image from "next/image";
 import Link from "next/link";
-import { ProductPlaceholder } from "./ProductPlaceholder";
 import type { Product } from "@/lib/products";
 
 export function ProductCard({ product }: { product: Product }) {
@@ -7,17 +7,21 @@ export function ProductCard({ product }: { product: Product }) {
 
   return (
     <div className="group">
-      <div className="relative aspect-[4/5] w-full overflow-hidden">
+      <div className="relative aspect-[4/5] w-full overflow-hidden border border-puro-black/10 bg-puro-beige/20">
         <Link href={href} className="block h-full w-full" aria-label={`Ver ${product.name}`}>
-          <ProductPlaceholder
-            slug={product.slug}
-            view="frente"
-            className="transition-opacity duration-300 group-hover:opacity-0"
+          <Image
+            src={product.coverImage}
+            alt={product.name}
+            fill
+            sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
+            className="object-cover transition-opacity duration-300 group-hover:opacity-0"
           />
-          <ProductPlaceholder
-            slug={product.slug}
-            view="costas"
-            className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+          <Image
+            src={product.hoverImage}
+            alt={`${product.name}, modelo vestindo a peça`}
+            fill
+            sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
+            className="object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100"
           />
         </Link>
 

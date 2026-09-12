@@ -19,6 +19,8 @@ export type Product = {
   specs: ProductSpec[];
   description: string;
   details: string[];
+  coverImage: string;
+  hoverImage: string;
 };
 
 export const products: Product[] = [
@@ -39,6 +41,8 @@ export const products: Product[] = [
     description:
       "Peça feita sob encomenda, uma de cada vez — sem produção em lote.",
     details: ["Detalhe do bordado", "Detalhe da estampa", "Caimento"],
+    coverImage: "/produtos/rooftop-sessions-tee/costas.png",
+    hoverImage: "/produtos/rooftop-sessions-tee/modelo-1.png",
   },
   {
     slug: "life-point-tee",
@@ -57,5 +61,7 @@ export const products: Product[] = [
     description:
       "Peça feita sob encomenda, uma de cada vez — sem produção em lote.",
     details: ["Detalhe do bordado", "Detalhe da estampa", "Caimento"],
+    coverImage: "/produtos/life-point-tee/costas.png",
+    hoverImage: "/produtos/life-point-tee/modelo-1.png",
   },
 ];

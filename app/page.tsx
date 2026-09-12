@@ -1,7 +1,7 @@
+import Image from "next/image";
 import Link from "next/link";
 import { products } from "@/lib/products";
 import { ProductCard } from "@/components/ProductCard";
-import { ProductPlaceholder } from "@/components/ProductPlaceholder";
 
 export default function Home() {
   const featured = products[0];
@@ -25,8 +25,15 @@ export default function Home() {
           </Link>
         </div>
         <Link href={`/colecao/${featured.slug}`} className="order-1 block lg:order-2">
-          <div className="aspect-[4/5] w-full">
-            <ProductPlaceholder slug={featured.slug} view="costas" />
+          <div className="relative aspect-[4/5] w-full overflow-hidden border border-puro-black/10 bg-puro-beige/20">
+            <Image
+              src={featured.coverImage}
+              alt={featured.name}
+              fill
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              priority
+              className="object-cover"
+            />
           </div>
         </Link>
       </section>
